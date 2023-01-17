@@ -8,7 +8,21 @@ router.get('/resources',(req,res,next)=>{
         if(err){
             res.send(message(false))
         }else{
-            res.send(message(true,data))
+            let textImg=[]
+            data.forEach((val)=>{
+                let obj={
+                    title:val
+                }
+               let imgs= fs.readdirSync(`/zbc/aliyunpan/电影/${val}`)
+               imgs.forEach((val)=>{
+                    if(imgs.indexOf('.png')!=-1||imgs.indexOf('.jpg')!=-1||imgs.indexOf('.jpeg')!=-1){
+                        obj.img=val
+                        return
+                    }
+               })
+               textImg.push(obj)
+            })
+            res.send(message(true,obj))
         }
     })
 })
