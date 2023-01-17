@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 8876
 const FilmRouter=require('./router/film.js')
 
 app.all("*",function(req,res,next){
