@@ -9,20 +9,23 @@ router.get('/resources',(req,res,next)=>{
             res.send(message(false))
         }else{
             let textImg=[]
-            data.forEach((val)=>{
+            data.every((vals)=>{
                 let obj={
-                    title:val
+                    title:vals
                 }
-               let imgs= fs.readdirSync(`/zbc/aliyunpan/电影/${val}`)
-               imgs.forEach((val)=>{
-                    if(imgs.indexOf('.png')!=-1||imgs.indexOf('.jpg')!=-1||imgs.indexOf('.jpeg')!=-1){
-                        obj.img=val
-                        return
+               let imgs= fs.readdirSync(`/zbc/aliyunpan/电影/${vals}`)
+               imgs.every((val)=>{
+                    if(val.indexOf('.png')!=-1||val.indexOf('.jpg')!=-1||val.indexOf('.jpeg')!=-1){
+                        obj.img=`电影/${vals}/${val}`
+                        return false
+                    }else{
+                        obj.img='zbc'
                     }
                })
                textImg.push(obj)
+               return true
             })
-            res.send(message(true,obj))
+            res.send(message(true,textImg))
         }
     })
 })
